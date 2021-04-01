@@ -6,9 +6,10 @@ from skyfield.api import load, wgs84
 ts = load.timescale()
 
 # load satellite data from NORAD
-url = 'https://www.celestrak.com/NORAD/elements/active.txt'
-filename = 'active.txt'
-satellites = load.tle_file(url, filename=filename)
+url 		= 'https://www.celestrak.com/NORAD/elements/active.txt'
+filename 	= 'active.txt'
+satellites 	= load.tle_file(url, filename=filename)
+saveFile 	= '../data/data.csv'
 
 # start an inifinte loop
 while True:
@@ -21,6 +22,7 @@ while True:
 	# create empty data struct
 	data = []
 
+	# add header to data structure
 	data.append(header)
 
 	for satellite in satellites:
@@ -32,7 +34,7 @@ while True:
 		newLine = [satellite.name, position[0], position[1], position[2]]
 		fileString = data.append(newLine)
 
-	with open('data.csv','w', newline='') as datafile:
+	with open(saveFile,'w', newline='') as datafile:
 		writer = csv.writer(datafile)
 		writer.writerows(data)
 	
